@@ -2,16 +2,16 @@
 
  /**
  * Plugin Name: Tickera Order Ticket Fetcher Addon
- * Plugin URI: https://distool.de/tickera
+ * Plugin URI: https://github.com/distool-de/Tickera-Order-Ticket-Fetcher-Addon/
  * Description: A Tickera addon for querying ticket instances based on order information.
  * Author: Distool.de
- * Author URI: https://distool.de/
- * Version: 1.0.0
+ * Author URI: https://github.com/distool-de/
+ * Version: 0.8.0
  * Text Domain: tcotf
  * Requires at least: 6.5.2
  * Requires PHP: 8.2.18
  * Requires Plugins: tickera-event-ticketing-system
- * Update URI: https://distool.de/tickera
+ * Update URI: https://github.com/distool-de/Tickera-Order-Ticket-Fetcher-Addon/releases
  */
 
 if ( !defined( 'ABSPATH' ) ) {
