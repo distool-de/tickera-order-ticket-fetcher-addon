@@ -1,5 +1,6 @@
 # Tickera Order Ticket Fetcher Addon
-![GitHub Release](https://img.shields.io/github/v/release/distool-de/Tickera-Order-Ticket-Fetcher-Addon)
+![GitHub Release](https://img.shields.io/github/v/release/distool-de/Tickera-Order-Ticket-Fetcher-Addon?link=https%3A%2F%2Fgithub.com%2Fdistool-de%2FTickera-Order-Ticket-Fetcher-Addon%2Freleases%2Flatest)
+
 
 ## Description
 This WordPress plugin serves as an addon for Tickera, enabling the querying of ticket instances based on order information.
