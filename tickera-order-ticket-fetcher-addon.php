@@ -6,18 +6,26 @@
  * Description: A Tickera addon for querying ticket instances based on order information.
  * Author: Distool.de
  * Author URI: https://github.com/distool-de/
- * Version: 0.8.0
+ * Version: 0.7.0
  * Text Domain: tcotf
  * Requires at least: 6.5.2
  * Requires PHP: 8.2.18
- * Requires Plugins: tickera-event-ticketing-system
- * Update URI: https://github.com/distool-de/Tickera-Order-Ticket-Fetcher-Addon/releases
+ * Update URI: https://github.com/distool-de/Tickera-Order-Ticket-Fetcher-Addon/
  */
 
 if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
 // Exit if accessed directly
+
+// Add Updater
+
+include_once( plugin_dir_path( __FILE__ ) . 'inludes/classes/class.updater.php' );
+
+$updater = new tcotf_Updater( __FILE__ );
+$updater->set_username( 'distool-de' );
+$updater->set_repository( 'Tickera-Order-Ticket-Fetcher-Addon' );
+$updater->initialize();
 
 // Add a function to init hook
 add_action('init', 'get_ticket_instances_from_orderid');
@@ -73,4 +81,3 @@ function get_ticket_instances_from_orderid() {
         }
     }
 }
-?>
