@@ -6,7 +6,7 @@
  * Description: A Tickera addon for querying ticket instances based on order information.
  * Author: Distool.de
  * Author URI: https://github.com/distool-de/
- * Version: 0.8.6
+ * Version: 0.8.7
  * Text Domain: tcotf
  * Requires at least: 6.5.2
  * Requires PHP: 8.2.18
