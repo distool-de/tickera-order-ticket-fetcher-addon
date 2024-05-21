@@ -18,6 +18,14 @@ if ( !defined( 'ABSPATH' ) ) {
 }
 // Exit if accessed directly
 
+//Add Updater
+include_once( plugin_dir_path( __FILE__ ) . 'updater.php' );
+
+$updater = new tcotf_Updater( __FILE__ );
+$updater->set_username( 'distool-de' );
+$updater->set_repository( 'Tickera-Order-Ticket-Fetcher-Addon' );
+$updater->initialize();
+
 // Add a function to init hook
 add_action('init', 'get_ticket_instances_from_orderid');
 
