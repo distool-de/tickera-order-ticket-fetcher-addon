@@ -19,7 +19,7 @@ if ( !defined( 'ABSPATH' ) ) {
 // Exit if accessed directly
 
 //Add Updater
-require_once $this->plugin_dir . 'includes/classes/class.updater.php';
+include_once( plugin_dir_path( __FILE__ ) . 'includes/classes/class.updater.php' );
 
 $updater = new tcotf_Updater( __FILE__ );
 $updater->set_username( 'distool-de' );
