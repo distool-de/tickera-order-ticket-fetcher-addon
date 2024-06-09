@@ -60,6 +60,7 @@ function get_ticket_instances_from_orderid() {
                     $response[] = array(
                         'ticket_id' => $ticket_id,
                         'ticket_template_POS' => $ticket_template_POS,
+                        'hash' => wp_hash( $ticket_id . $order_key),
                     );
                 }
 
