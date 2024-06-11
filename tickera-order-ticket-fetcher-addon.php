@@ -5,7 +5,7 @@
  * Description: A Tickera addon for querying ticket instances based on order information.
  * Author: Distool.de
  * Author URI: https://github.com/distool-de/
- * Version: 0.8.8
+ * Version: 0.9.0
  * Text Domain: tcotf
  * Update URI: https://github.com/distool-de/Tickera-Order-Ticket-Fetcher-Addon/
  */
@@ -17,6 +17,12 @@ if ( !defined( 'ABSPATH' ) ) {
 
 // Add Updater
 include_once( plugin_dir_path( __FILE__ ) . 'includes/classes/class.updater.php' );
+
+require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class.wo-pos-ticket-template.php';
+
+// Instantiate the class
+new WooCommerce_Tickera_Bridge_Extend();
+
 // Include the POS Ticket Template class
 require_once plugin_dir_path(__FILE__) . 'includes/classes/class.tc-pos-ticket-template.php';
 
@@ -55,7 +61,7 @@ function get_ticket_instances_from_orderid() {
                 foreach ( $ticket_instances as $ticket_instance ) {
                     $ticket_id = $ticket_instance->ID;
                     $ticket_type_id = get_post_meta( $ticket_id, 'ticket_type_id', true );
-                    $ticket_template_POS = get_post_meta( $ticket_type_id, 'ticket_template_POS', true );
+                    $ticket_template_POS = get_post_meta( $ticket_type_id, '_ticket_pos_template', true );
 
                     $response[] = array(
                         'ticket_id' => $ticket_id,
@@ -73,4 +79,5 @@ function get_ticket_instances_from_orderid() {
         }
     }
 }
+
 ?>

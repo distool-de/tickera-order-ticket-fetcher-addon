@@ -12,7 +12,7 @@ class TC_POSTicketTemplate {
 
     public function add_pos_ticket_template_field($fields) {
         $fields[] = array(
-            'field_name' => 'ticket_template_POS',
+            'field_name' => '_ticket_pos_template',
             'field_title' => __('POS Ticket template', 'tc'),
             'field_type' => 'function',
             'function' => array($this, 'tc_get_ticket_templates_POS'),
