@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 
 // Autoload or require necessary class files.
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class.wo-pos-ticket-template.php';
-//require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class.tc-pos-ticket-template.php';
+
 
 // Register hook to fetch ticket instances via URL query.
 add_action( 'init', 'tcotf_fetch_ticket_instances_from_order' );
