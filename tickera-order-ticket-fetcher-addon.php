@@ -2,13 +2,13 @@
 /**
  * Plugin Name: Tickera Order Ticket Fetcher Addon
  * Plugin URI: https://github.com/distool-de/Tickera-Order-Ticket-Fetcher-Addon/
- * Description: A Tickera addon for querying ticket instances based on order information.
+ * Description: A Tickera addon for querying ticket instances based on order information and POS Tempalte Select in an Woocommerce Product.
  * Author: Distool.de
  * Author URI: https://github.com/distool-de/
  * Version: 2.0.0
  * Text Domain: tcotf
- * Requires at least: 6.4
- * Requires PHP: 7.4
+ * Requires at least: 6.8.1
+ * Requires PHP: 8.0
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
