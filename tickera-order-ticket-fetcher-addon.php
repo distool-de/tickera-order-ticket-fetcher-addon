@@ -39,29 +39,30 @@ function tcotf_fetch_ticket_instances_from_order() {
         return;
     }
 
-    if ( ! class_exists( 'TC_Order' ) ) {
-        return;
+    $args = [
+                'post_type'      => 'shop_order',
+                'post_status'    => 'wc-completed',
+                'numberposts'    => 1,
+                'ID'             => $order_id,
+            ];
+
+    $woo_order = get_posts( $args );
+
+    $order_status = $woo_order[0]->post_status;
+    $order_date = strtotime( $woo_order[0]->post_date );
+    $order_modified = strtotime( $woo_order[0]->post_modified );
+    $tc_order_date = $woo_order[0]->tc_order_date;
+    $tc_paid_date = $woo_order[0]->_tc_paid_date;
+
+    if ( ! is_array( $woo_order ) || empty( $woo_order[0] ) ) {
+        wp_send_json( [ 'status' => 401, 'message' => 'Invalid order ID.', 'data' => [] ] );
     }
 
-    $order            = new TC_Order( $order_id );
-    $order_status     = $order->details->post_status ?? '';
-    $order_date       = strtotime( $order->details->post_date ?? '' );
-    $order_modified   = strtotime( $order->details->post_modified ?? '' );
-    $tc_order_date    = $order->details->tc_order_date ?? '';
-    $alt_paid_date    = $order->details->_tc_paid_date ?? '';
-
-    $valid_statuses = apply_filters( 'tc_validate_downloadable_ticket_order_status', [ 'order_paid' ], $order );
-
-    if ( ! in_array( $order_status, $valid_statuses, true ) ) {
+    if ( $order_status !== 'wc-completed' ) {
         wp_send_json( [ 'status' => 401, 'message' => 'Invalid order status.', 'data' => [] ] );
     }
 
-    if (
-        $order_key !== (string) $order_date &&
-        $order_key !== (string) $order_modified &&
-        $order_key !== (string) $tc_order_date &&
-        $order_key !== (string) $alt_paid_date
-    ) {
+    if ($order_key !== (string) $order_date && $order_key !== (string) $order_modified && $order_key !== (string) $tc_order_date && $order_key !== (string) $tc_paid_date) {
         wp_send_json( [ 'status' => 401, 'message' => 'Invalid order key.', 'data' => [] ] );
     }
 
@@ -73,8 +74,6 @@ function tcotf_fetch_ticket_instances_from_order() {
             'numberposts' => -1,
         ]
     );
-
-    $response = [];
 
     foreach ( $ticket_instances as $ticket_instance ) {
         $ticket_id         = $ticket_instance->ID;
