@@ -5,7 +5,7 @@
  * Description: A Tickera addon for querying ticket instances based on order information and POS Tempalte Select in an Woocommerce Product.
  * Author: Distool.de
  * Author URI: https://github.com/distool-de/
- * Version: 2.0.0
+ * Version: 0.9.1
  * Text Domain: tcotf
  * Requires at least: 6.8.1
  * Requires PHP: 8.0

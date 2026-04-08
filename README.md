@@ -22,16 +22,16 @@ https://yourwebsite.com/?order_id=123&order_key=your_order_key
 ```
 
 ## Requirements
-- WordPress version: 6.5.2 or higher
-- PHP version: 8.2.18 or higher
-- Required Plugins: tickera-event-ticketing-system
+- WordPress version: 6.8.1 or higher
+- PHP version: 8.0 or higher
+- Required Plugins: tickera-event-ticketing-system, WooCommerce 8.2+
 
 ## Author
 - Name: Distool.de
 - Website: [Distool.de](https://distool.de/)
 
 ## Version
-1.0.0
+0.9.1
 
 ## Text Domain
 tcotf
@@ -45,6 +45,16 @@ The authors and distributors of this plugin do not take any responsibility for a
 
 
 ## Changelog
+- **Version 0.9.1:**
+  - WooCommerce HPOS compatibility: replaced `get_posts(shop_order)` with `wc_get_order()` (required for WC 8.2+).
+  - Fixed fatal PHP error when an invalid order ID was passed (null check now happens before property access).
+  - Fixed missing `require_once` for `class.tc-pos-ticket-template.php` — Tickera admin template selector was never loaded.
+  - Replaced custom timestamp-based order key validation with `$order->get_order_key()`.
+  - Added nonce verification (`woocommerce_meta_nonce`) to the WooCommerce product save handler.
+  - Removed debug `print_r` / `print` statements from production code.
+  - Initialized `$response = []` to prevent undefined variable warning on empty orders.
+  - Fixed text domain `'woocommerce'` → `'tcotf'`.
+
 - **Version 1.0.0:**
   - Initial release.
   - Key features:
