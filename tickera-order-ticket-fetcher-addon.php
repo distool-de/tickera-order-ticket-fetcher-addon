@@ -17,6 +17,7 @@ defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 
 // Autoload or require necessary class files.
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class.wo-pos-ticket-template.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class.tc-pos-ticket-template.php';
 
 
 // Register hook to fetch ticket instances via URL query.
@@ -39,31 +40,21 @@ function tcotf_fetch_ticket_instances_from_order() {
         return;
     }
 
-    $args = [
-                'post_type'      => 'shop_order',
-                'post_status'    => 'wc-completed',
-                'numberposts'    => 1,
-                'ID'             => $order_id,
-            ];
+    $order = wc_get_order( $order_id );
 
-    $woo_order = get_posts( $args );
-
-    $order_status = $woo_order[0]->post_status;
-    $order_date = strtotime( $woo_order[0]->post_date );
-    $order_modified = strtotime( $woo_order[0]->post_modified );
-    $tc_order_date = $woo_order[0]->tc_order_date;
-    $tc_paid_date = $woo_order[0]->_tc_paid_date;
-
-    if ( ! is_array( $woo_order ) || empty( $woo_order[0] ) ) {
+    if ( ! $order ) {
         wp_send_json( [ 'status' => 401, 'message' => 'Invalid order ID.', 'data' => [] ] );
+        exit;
     }
 
-    if ( $order_status !== 'wc-completed' ) {
+    if ( $order->get_status() !== 'completed' ) {
         wp_send_json( [ 'status' => 401, 'message' => 'Invalid order status.', 'data' => [] ] );
+        exit;
     }
 
-    if ($order_key !== (string) $order_date && $order_key !== (string) $order_modified && $order_key !== (string) $tc_order_date && $order_key !== (string) $tc_paid_date) {
+    if ( $order->get_order_key() !== $order_key ) {
         wp_send_json( [ 'status' => 401, 'message' => 'Invalid order key.', 'data' => [] ] );
+        exit;
     }
 
     $ticket_instances = get_posts(
@@ -75,6 +66,7 @@ function tcotf_fetch_ticket_instances_from_order() {
         ]
     );
 
+    $response = [];
     foreach ( $ticket_instances as $ticket_instance ) {
         $ticket_id         = $ticket_instance->ID;
         $ticket_type_id    = get_post_meta( $ticket_id, 'ticket_type_id', true );
