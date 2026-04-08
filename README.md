@@ -31,7 +31,7 @@ https://yourwebsite.com/?order_id=123&order_key=your_order_key
 - Website: [Distool.de](https://distool.de/)
 
 ## Version
-0.9.1
+0.9.2
 
 ## Text Domain
 tcotf
@@ -45,6 +45,9 @@ The authors and distributors of this plugin do not take any responsibility for a
 
 
 ## Changelog
+- **Version 0.9.2**
+  - Add new way to calc. hash
+
 - **Version 0.9.1:**
   - WooCommerce HPOS compatibility: replaced `get_posts(shop_order)` with `wc_get_order()` (required for WC 8.2+).
   - Fixed fatal PHP error when an invalid order ID was passed (null check now happens before property access).
