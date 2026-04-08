@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * POS Ticket Template for Tickera
  *
