@@ -71,12 +71,14 @@ function tcotf_fetch_ticket_instances_from_order() {
         $ticket_id         = $ticket_instance->ID;
         $ticket_type_id    = get_post_meta( $ticket_id, 'ticket_type_id', true );
         $ticket_template   = get_post_meta( $ticket_type_id, '_ticket_pos_template_id', true );
+        $tc_order_key      = strtotime( $order->get_date_created()->date( 'Y-m-d H:i:s' ) );
 
         $response[] = [
-            'ticket_id'          => $ticket_id,
-            'ticket_template_POS'=> $ticket_template,
-            'hash'               => wp_hash( $ticket_id . $order_key ),
-        ];
+			'ticket_id'           => $ticket_id,
+			'ticket_template_POS' => $ticket_template,
+			'tc_order_key'        => $tc_order_key,
+			'hash'                => wp_hash( $ticket_id . $tc_order_key ),
+		];
     }
 
     wp_send_json(
