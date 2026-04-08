@@ -54,11 +54,14 @@ if ( ! class_exists( 'WooCommerce_Tickera_Bridge_Extend' ) ) {
          * 
          */
         public function save_pos_ticket_template_field($post_id) {
-            print_r($POST);
-            print($post_id);
-            $woocommerce_ticket_pos_template_id = $_POST['_ticket_pos_template_id'];
+            if ( ! isset( $_POST['woocommerce_meta_nonce'] )
+                || ! wp_verify_nonce( sanitize_key( $_POST['woocommerce_meta_nonce'] ), 'woocommerce_save_data' ) ) {
+                return;
+            }
+
+            $woocommerce_ticket_pos_template_id = isset( $_POST['_ticket_pos_template_id'] ) ? sanitize_text_field( wp_unslash( $_POST['_ticket_pos_template_id'] ) ) : '';
             if( !empty( $woocommerce_ticket_pos_template_id ) )
-                update_post_meta( $post_id, '_ticket_pos_template_id', esc_attr( $woocommerce_ticket_pos_template_id ) );
+                update_post_meta( $post_id, '_ticket_pos_template_id', $woocommerce_ticket_pos_template_id );
             else {
                 update_post_meta( $post_id, '_ticket_pos_template_id',  '' );
             }
@@ -80,7 +83,7 @@ if ( ! class_exists( 'WooCommerce_Tickera_Bridge_Extend' ) ) {
                 'order'          => 'ASC',
             ];
 
-            $templates[''] = __( 'Select a value', 'woocommerce');
+            $templates[''] = __( 'Select a value', 'tcotf' );
 
             $tc_templates = get_posts( $args );
             foreach ($tc_templates as $key => $value) {
